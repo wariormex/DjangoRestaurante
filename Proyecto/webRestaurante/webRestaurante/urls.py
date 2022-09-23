@@ -18,6 +18,7 @@ from django.urls import path, include
 from core import views
 from . import settings
 from core.urls import core_urlpatterns
+from blog.urls import blog_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,7 +29,8 @@ urlpatterns = [
     path('servicios/', views.services, name='services'),
     #path('visitanos/', views.store, name='store'),
     path('contacto/', views.contact, name='contact'),
-    path('blog/', views.blog, name='blog'),
+    #path('blog/', views.blog, name='blog'),
+    path('', include(blog_urlpatterns)),
 ]
 
 if settings.DEBUG:
