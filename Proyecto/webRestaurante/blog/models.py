@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Nombre")
+    name = models.CharField(max_length=100, verbose_name="Categoria")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creacion")
     updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de actualizacion")
     
@@ -36,3 +36,7 @@ class Post(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def get_nombre(self):
+        return self.author.first_name
+    get_nombre.short_description = 'Nombre autor'

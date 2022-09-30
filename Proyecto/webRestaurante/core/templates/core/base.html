@@ -57,7 +57,7 @@
           <li class="nav-item {% if request.path == '/contacto/'%}active{% endif%} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'contact' %}">Contacto</a>
           </li>
-          <li class="nav-item {% if request.path == '/blog/'%}active{% endif%} px-lg-4">
+          <li class="nav-item {% if request.path|slice:':6' == '/blog/'%}active{% endif%} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'blog:blog' %}">Blog</a>
           </li>
         </ul>
@@ -91,9 +91,12 @@
         </a>
       </p>
       <p class="m-0 mbt">
-        <a href="sample.html" class="link">Política de privacidad</a> ·
-        <a href="sample.html" class="link">Aviso legal</a> ·
-        <a href="sample.html" class="link">Cookies</a>
+        {% load page_extras %}
+        {% get_page_list as page_list %}
+        {% for page in page_list %}
+          <a href="{% url 'pages:page' page.id %}" class="link">{{page.title}}</a>
+        {% if not forloop.last %}·{% endif %}
+        {% endfor %}
       </p>
       <p class="m-0 mbt1">&copy; La Recova <span id="year"></span></p>
     </div>

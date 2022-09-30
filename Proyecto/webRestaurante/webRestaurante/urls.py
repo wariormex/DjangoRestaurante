@@ -20,6 +20,7 @@ from . import settings
 from core.urls import core_urlpatterns
 from blog.urls import blog_urlpatterns
 from services.urls import services_urlpatterns
+from pages.urls import pages_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,11 +29,12 @@ urlpatterns = [
     #path('', views.home, name='home'),
     # path('historia/', views.about, name='about'),
     #path('servicios/', views.services, name='services'),
-    path('', include(services_urlpatterns)),
+    path('servicios/', include(services_urlpatterns)),
     #path('visitanos/', views.store, name='store'),
     path('contacto/', views.contact, name='contact'),
     #path('blog/', views.blog, name='blog'),
-    path('', include(blog_urlpatterns)),
+    path('blog/', include(blog_urlpatterns)),
+    path('pages/', include(pages_urlpatterns)),
 ]
 
 if settings.DEBUG:

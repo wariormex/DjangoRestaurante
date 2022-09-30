@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 
-  {% for post in posts %} 
+  {% for post in category.get_posts.all %} 
     {% include 'blog/post.html' %}
   {% endfor %}
 
