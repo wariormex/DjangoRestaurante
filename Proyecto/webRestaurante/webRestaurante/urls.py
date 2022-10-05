@@ -21,6 +21,7 @@ from core.urls import core_urlpatterns
 from blog.urls import blog_urlpatterns
 from services.urls import services_urlpatterns
 from pages.urls import pages_urlpatterns
+from contact.urls import contact_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,7 +32,7 @@ urlpatterns = [
     #path('servicios/', views.services, name='services'),
     path('servicios/', include(services_urlpatterns)),
     #path('visitanos/', views.store, name='store'),
-    path('contacto/', views.contact, name='contact'),
+    path('contacto/', include(contact_urlpatterns)),
     #path('blog/', views.blog, name='blog'),
     path('blog/', include(blog_urlpatterns)),
     path('pages/', include(pages_urlpatterns)),
