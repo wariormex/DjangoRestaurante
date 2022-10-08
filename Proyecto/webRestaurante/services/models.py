@@ -1,10 +1,11 @@
 from django.db import models
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Services
 class Service(models.Model):
     title= models.CharField(max_length=200, verbose_name="Titulo")
     subtitle= models.CharField(max_length=200, verbose_name="Subtitulo")
-    content = models.TextField(verbose_name="Contenido")
+    content = RichTextUploadingField(verbose_name="Contenido")
     image = models.ImageField(upload_to='services', null=True, blank=True)
     
     

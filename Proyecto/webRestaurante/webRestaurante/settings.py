@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_cleanup',
     'ckeditor',
+    'ckeditor_uploader',
     'core',
     'blog',
     'services',
@@ -146,3 +147,6 @@ CKEDITOR_CONFIGS = {
         ]
     }
 }
+
+#Ckeditor upload path
+CKEDITOR_UPLOAD_PATH = 'uploads/'
