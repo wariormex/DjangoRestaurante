@@ -20,7 +20,10 @@
                     <p class="mb-0">{{service.content|safe}}</p>
                     <br>
                     {% if request.user.is_staff %}
-                        <a href="{% url 'services:update' service.id %}">Ver detalle </a>
+                        <a class="btn btn-light" href="{% url 'services:update' service.id %}">Ver detalle </a>
+                        <br>
+                        <br>
+                        <a class="btn btn-light" href="{% url 'services:delete' service.id %}">Eliminar Servicio</a>
                     {% endif %}
                 </div>
                 </div>

@@ -13,7 +13,7 @@ def create(request):
         form = ServiceForm(request.POST, request.FILES)
         if form.is_valid():
             new_service = form.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/servicios/')
         #else:
         #    return render(request,'services/service_form.html', {'form':form})
     else:
@@ -28,7 +28,16 @@ def update(request, service_id):
         form = ServiceForm(request.POST, request.FILES, instance=service)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/servicios/')
     else:
         form = ServiceForm()
     return render(request,'services/service_update_form.html',{'form':form})
+
+@staff_member_required()
+def delete(request, service_id):
+    context = {}
+    service = Service.objects.get(id=service_id)
+    if request.method == 'POST':
+        service.delete()
+        return HttpResponseRedirect('/servicios/')
+    return render(request,'services/service_delete_form.html',context)

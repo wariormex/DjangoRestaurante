@@ -6,4 +6,5 @@ services_urlpatterns = ([
     path('', views.services, name='services'),
     path('create/', views.create, name='create'),
     path('update/<int:service_id>', views.update, name='update'),
+    path('delete/<int:service_id>', views.delete, name='delete'),
 ], 'services')
