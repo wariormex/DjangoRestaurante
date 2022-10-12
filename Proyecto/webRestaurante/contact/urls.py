@@ -4,4 +4,6 @@ from contact import views
 contact_urlpatterns = ([
     path('', views.contact, name='contact'),
     path('thanks/',views.thanks, name='thanks'),
+    #Practica AJAX
+    path('ejecutaAJAX/',views.ejecutaAJAX, name='ejecutaAJAX'),
 ],'contact')

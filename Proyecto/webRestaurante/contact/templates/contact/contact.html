@@ -13,6 +13,17 @@
               <span class="section-heading-upper">Envíanos tus dudas</span>
               <span class="section-heading-lower">Contacto</span>
             </h2>
+      <!-- Practica de AJAX -->
+      <br><br><br>
+      <select id='select1' class="form-select">
+        <option value="0" selected>Opciones: </option>
+        <option value="1">Categoria</option>
+        <option value="2">Dos</option>
+      </select>
+      <br>
+      <select id='select2' class="form-select">
+      </select>
+      <br><br><br>
       <!-- Formulario de contacto -->
       <form action="" method="post">
           {% csrf_token %}
@@ -53,4 +64,59 @@
 </section>
 
 
+{% endblock %}
+
+{% block contentJS %} 
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+  <script>
+    function csrfSafeMethod(method){
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    function ejecutaAjax(obj_json){
+      $.ajax({
+        url: "{% url 'contact:ejecutaAJAX' %}",
+        type: 'POST',
+        dataType: 'json',
+        data:obj_json,
+        beforeSend: function(xhr, settings){
+          console.log(obj_json);
+          if(!csrfSafeMethod(settings.type) && !this.crossDomain){
+            xhr.setRequestHeader("X-CSRFToken",Cookies.get('csrftoken'));
+          }
+        }}).done(function(respuesta, textStatus, jqXHR){
+          $('#select2').empty();
+          if (respuesta['estado'] == 'correcto'){
+            var opciones = respuesta["opciones"]
+            $.each(opciones, function(k,v){
+              $('#select2').append($('<option>',{
+                value:k,
+                text:v  
+              }));
+            });
+          }else{
+            $('#select2').append($('<option>',{
+              value:'0',
+              text:respuesta["estado"]  
+            }));
+          }
+        }).fail(function(){
+          $('#select2').append($('<option>',{
+            value:'0',
+            text:'Error'  
+          }));
+        }).always(function(){
+        });
+    }
+
+    $(function(){
+      $('#select1').on('change',function(){
+        console.log('select1');
+        var valor = this.value
+        var str_json = '{ "valor": "' + valor + '" }'
+        var obj_json = jQuery.parseJSON(str_json);
+        ejecutaAjax(obj_json);
+      });
+    });
+  </script>
 {% endblock %}
