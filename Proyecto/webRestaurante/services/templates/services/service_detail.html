@@ -1,0 +1,11 @@
+{% extends "core/base.html"%}
+{% block content %}
+
+<div class="container" style='background-color:white'>
+    <p>{{object.title}}</p>
+    <img src="{{object.image.url}}" style='width:80%' alt="">
+    <p>{{object.content|safe}}</p>
+    <p>{{now}}</p>
+</div>
+
+{% endblock %}

@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 {% include 'services/menu_services.html'%}
-    {% for service in services %} 
+    {% for service in object_list %} {% comment %} {% for service in services %}  {% endcomment %}
         <section class="page-section">
             <div class="container">
             <div class="product-item">
@@ -20,7 +20,10 @@
                     <p class="mb-0">{{service.content|safe}}</p>
                     <br>
                     {% if request.user.is_staff %}
-                        <a class="btn btn-light" href="{% url 'services:update' service.id %}">Ver detalle </a>
+                        <a class="btn btn-light" href="{% url 'services:service_detail' service.id %}">Ver Detalle</a>
+                        <br>
+                        <br>
+                        <a class="btn btn-light" href="{% url 'services:update' service.id %}">Actualizar Servicio</a>
                         <br>
                         <br>
                         <a class="btn btn-light" href="{% url 'services:delete' service.id %}">Eliminar Servicio</a>
@@ -31,5 +34,28 @@
             </div>
         </section>
     {% endfor %}
+    <div class="container">
+        <ul class="pagination pagination-lg">
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page1">&laquo; 1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{page_obj.previous_page_number}}">Anterior</a>
+                </li>
+            {% endif %}
+            <li class="page-item"> <span class="page-link">
+                {{page_obj.number}} de {{page_obj.paginator.num_pages}} </span>
+            </li>
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{page_obj.next_page_number}}">Siguiente</a>
+                </li>  
+            {% endif %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{page_obj.paginator.num_pages}}">{{page_obj.paginator.num_pages}} &raquo;</a>
+                </li>  
+        </ul>
+    </div>
 
 {% endblock %}

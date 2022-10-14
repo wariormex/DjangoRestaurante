@@ -48,8 +48,8 @@
           <li class="nav-item {% if request.path == '/historia/'%}active{% endif%} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'core:about' %}">Historia</a>
           </li>
-          <li class="nav-item {% if request.path == '/servicios/'%}active{% endif%} px-lg-4">
-            <a class="nav-link text-uppercase text-expanded" href="{% url 'services:services' %}">Servicios</a>
+          <li class="nav-item {% if request.path == '/servicios/'%}active{% endif%} px-lg-4"> {% comment %} <li class="nav-item {% if request.path == '/servicios/'%}active{% endif%} px-lg-4">  {% endcomment %}
+            <a class="nav-link text-uppercase text-expanded" href="{% url 'services:service_list' %}">Servicios</a> {% comment %} <a class="nav-link text-uppercase text-expanded" href="{% url 'services:services' %}">Servicios</a>  {% endcomment %}
           </li>
           <li class="nav-item {% if request.path == '/visitanos/'%}active{% endif%} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'core:store' %}">Visítanos</a>
@@ -59,6 +59,14 @@
           </li>
           <li class="nav-item {% if request.path|slice:':6' == '/blog/'%}active{% endif%} px-lg-4">
             <a class="nav-link text-uppercase text-expanded" href="{% url 'blog:blog' %}">Blog</a>
+          </li>
+          <li class="nav-item px-lg-4">
+            {% if request.user.is_authenticated %}
+            <span class="nav-link text-uppercase text-expanded" style="color:white" class="text-expanded">{{request.user.get_full_name}}</span>
+              <a class="nav-link text-uppercase text-expanded" href="{% url 'core:logout' %}">Salir</a>
+            {% else %}
+              <a class="nav-link text-uppercase text-expanded" href="{% url 'social:begin' 'google-oauth2' %}">Sign in with Google</a>
+            {% endif %}
           </li>
         </ul>
       </div>

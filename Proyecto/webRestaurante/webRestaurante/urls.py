@@ -36,6 +36,8 @@ urlpatterns = [
     #path('blog/', views.blog, name='blog'),
     path('blog/', include(blog_urlpatterns)),
     path('pages/', include(pages_urlpatterns)),
+    path('social-auth/', include('social_django.urls', namespace='social')),
+    path('accounts/', include('django.contrib.auth.urls')),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ]
 

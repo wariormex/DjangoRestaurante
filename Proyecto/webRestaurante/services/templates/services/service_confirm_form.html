@@ -5,10 +5,12 @@
                 <form action="" method='post' enctype="multipart/form-data">
                     {% csrf_token %}
                         <div class="bg-faded p-5 rounded">
+                            <p class="mb-0" style="color:black">Are you sure you want to delete service "{{ object }}"?</p>
+                            <br>
                             <input class="btn btn-light" type="submit" value="Confirmar Borrado"/>
                             <br>
                             <br>
-                            <a class="btn btn-light" href="{% url 'services:services' %}">Cancelar</a>
+                            <a class="btn btn-light" href="{% url 'services:service_list' %}">Cancelar</a>
                         </div>
                 </form>
             </div>
