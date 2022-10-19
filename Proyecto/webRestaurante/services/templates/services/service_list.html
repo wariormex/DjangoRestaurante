@@ -19,7 +19,12 @@
                 <div class="bg-faded p-5 rounded">
                     <p class="mb-0">{{service.content|safe}}</p>
                     <br>
+                    <a class="btn btn-primary"
+                        onClick="agregaCarrito({{service.id}});">Agrega al carrito
+                    </a>
                     {% if request.user.is_staff %}
+                        <br>
+                        <br>
                         <a class="btn btn-light" href="{% url 'services:service_detail' service.id %}">Ver Detalle</a>
                         <br>
                         <br>

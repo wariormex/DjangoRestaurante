@@ -7,6 +7,7 @@ from services.views import ServiceCreateView, ServiceUpdateView, ServiceDeleteVi
 services_urlpatterns = ([
     #path('', views.services, name='services'),
     path('', ServiceListView.as_view(), name='service_list'),
+    path('pedido/', views.realizar_pedido, name="detalle_pedido"),
     path('detail/<pk>',ServiceDetailsView.as_view(), name='service_detail'),
     path('create/', ServiceCreateView.as_view(), name='create'),
     path('update/<pk>', ServiceUpdateView.as_view(), name='update'),
