@@ -1,0 +1,16 @@
+{% extends "core/base.html"%}
+{% block content %}
+{% load static %}
+
+<div class="container mb-4">
+   <h1 class="text-white">Gracias por su preferencia...</h1>
+</div>
+
+{% endblock %}
+
+{% block contentJS %}
+    <script>
+        localStorage.clear();
+        show_badge_cart();
+    </script>
+{% endblock %}

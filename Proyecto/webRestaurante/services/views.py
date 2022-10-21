@@ -3,10 +3,11 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.base import TemplateView
 from django.urls import reverse_lazy
 from django.utils import timezone
 from .models import Service
-from .forms import ServiceForm
+from .forms import ServiceForm, PedidoForm
 
 class ServiceListView(ListView):
     model = Service
@@ -40,6 +41,24 @@ class ServiceDeleteView(DeleteView):
     
     success_url = reverse_lazy('services:service_list')
  
+class ServiceCreatePedido(CreateView):
+    form_class = PedidoForm
+    template_name = 'services/pedido_cliente.html'
+    success_url = reverse_lazy('services:success_pedido')
+    
+    def form_valid(self, form):
+        pedido_nuevo = form.save(commit=False)
+        pedido_nuevo.save()
+        return super().form_valid(form)
+    
+    def get_form_kwargs(self):
+        kwargs = super(ServiceCreatePedido, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+class PedidoSuccess(TemplateView):
+    template_name = 'services/pedido_success.html'
+
 def _creaDiccionario(datos_pedido):
     diccionario = {}
     datos_pedido = datos_pedido[:-1]
@@ -65,6 +84,7 @@ def realizar_pedido(request):
                 dict_producto['subtitulo'] = servicio.subtitle
                 dict_producto['cantidad'] = cantidad
                 dict_producto['precio'] = "100"
+                dict_producto['subtotal'] = cantidad * 100
                 total += cantidad * 100
                 pedido.append(dict_producto)
         request.session['total_float'] = float(total)
