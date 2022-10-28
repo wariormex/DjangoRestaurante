@@ -1,0 +1,35 @@
+{% extends "core/base.html"%}
+{% block content %}
+{% load static %}
+
+<div class="container">
+    <div class="about-heading-content mbtm">
+        <div class="row">
+            <div class="col-xl-9 col-lg-10 mx-auto">
+                <div class="bg-faded rounded p-5 forced">
+                    <h2 class="section-heading mb-4">Authenticación</h2>
+                    <div class="section-content">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {% if form.non_field_errors %}
+                            <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
+                            {% endif %}
+                            <p>
+                                <input type="text" name="username" autofocus maxlength="254" required
+                                id="id_username" class="form-control" placeholder="Nombre de usuario"/>
+                            </p>
+                            <p>
+                                <input type="password" name="password" required
+                                id="id_password" class="form-control" placeholder="Contraseña"/>
+                            </p>
+                            <p><input type="submit" class="btn btn-primary btn-block" value="Acceder"></p>
+                            <p><a href="{% url 'password_reset' %}">¿Olvidaste tu contraseña?</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
